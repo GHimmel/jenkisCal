@@ -1,22 +1,83 @@
+import java.util.Random
+
 pipeline {
-    agent any
-
+    agent none
+    parameters {
+        string(name: 'NOMBRE1', defaultValue: 'Juan', description: 'Nombre 1')
+        string(name: 'NOMBRE2', defaultValue: 'Maria', description: 'Nombre 2')
+        string(name: 'NOMBRE3', defaultValue: 'Pedro', description: 'Nombre 3')
+        string(name: 'NOMBRE4', defaultValue: 'Ana', description: 'Nombre 4')
+        string(name: 'NOMBRE5', defaultValue: 'Luis', description: 'Nombre 5')
+    }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                sh 'mvn clean compile'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
+        stage('Ejecutar en paralelo') {
+            parallel {
+                stage('Nombre 1') {
+                    agent any
+                    steps {
+                        script {
+                            Random random = new Random()
+                                for (int i = 1; i <= 15; i++) {
+                                echo "Hola, soy ${params.NOMBRE1} y estoy imprimiendo el número $i"
+                              sleep random.nextInt(4) + 1
+                            }
+                           
+                        }
+                    }
+                }
+                stage('Nombre 2') {
+                   agent any
+                    steps {
+                        script {
+                            Random random = new Random()
+                                 for (int i = 1; i <= 15; i++) {
+                                echo "Hola, soy ${params.NOMBRE1} y estoy imprimiendo el número $i"
+                              sleep random.nextInt(4) + 1
+                            }
+                               
+                           
+                        }
+                    }
+                }
+                stage('Nombre 3') {
+                    agent any
+                    steps {
+                        script {
+                           Random random = new Random()
+                                 for (int i = 1; i <= 15; i++) {
+                                echo "Hola, soy ${params.NOMBRE1} y estoy imprimiendo el número $i"
+                               sleep random.nextInt(4) + 1
+                            }
+                             
+                        }
+                    }
+                }
+                stage('Nombre 4') {
+                     agent any
+                    steps {
+                        script {
+                           Random random = new Random()
+                                for (int i = 1; i <= 15; i++) {
+                                echo "Hola, soy ${params.NOMBRE1} y estoy imprimiendo el número $i"
+                                sleep random.nextInt(4) + 1
+                            }
+                            
+                        }
+                    }
+                }
+                stage('Nombre 5') {
+                    agent any
+                    steps {
+                        script {
+                            Random random = new Random()
+                                for (int i = 1; i <= 15; i++) {
+                                echo "Hola, soy ${params.NOMBRE1} y estoy imprimiendo el número $i"
+                              sleep random.nextInt(4) + 1
+                            }
+                           
+                        }
+                    }
+                }
             }
         }
     }
