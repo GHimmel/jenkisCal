@@ -4,38 +4,37 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Paso para clonar el repositorio desde Git
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/GHimmel/jenkisCal.git']]])
             }
         }
 
         stage('Build') {
             steps {
-                // Paso para compilar el proyecto con Maven
                 sh 'mvn clean package'
             }
         }
 
         stage('Test') {
             steps {
-                // Puedes agregar comandos para ejecutar pruebas aquí si las tienes
                 sh 'mvn test'
             }
         }
 
         stage('Deploy') {
             steps {
-                // Puedes agregar comandos para desplegar la aplicación aquí si es necesario
+                // Agrega comandos de despliegue aquí si es necesario
             }
         }
     }
 
     post {
         success {
-            // Puedes agregar acciones posteriores a la ejecución exitosa aquí
+            echo 'El proceso de Jenkins se ejecutó con éxito'
+            // Puedes agregar más pasos aquí en caso de éxito
         }
         failure {
-            // Puedes agregar acciones posteriores a la ejecución fallida aquí
+            echo 'El proceso de Jenkins falló'
+            // Puedes agregar más pasos aquí en caso de fallo
         }
     }
 }
