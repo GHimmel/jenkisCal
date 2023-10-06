@@ -20,11 +20,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                // Agrega comandos de despliegue aquí si es necesario
-            }
-        }
+        
     }
 
     post {
